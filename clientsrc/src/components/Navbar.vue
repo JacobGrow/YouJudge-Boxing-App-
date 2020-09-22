@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <router-link class="navbar-brand" :to="{ name: 'home' }"
-      >Kanban</router-link
+      >YouJudge</router-link
     >
     <button
       class="navbar-toggler"
@@ -27,7 +27,7 @@
           :class="{ active: $route.name == 'boards' }"
         >
           <router-link class="nav-link" :to="{ name: 'boards' }"
-            >My-Dashboard</router-link
+            >My Cards</router-link
           >
         </li>
       </ul>
