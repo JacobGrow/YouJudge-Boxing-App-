@@ -2,24 +2,24 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId
 
-
-const Fight = new Schema(
+const Card = new Schema(
   {
     title: { type: String, required: true },
     fighter1: { type: String, required: true },
-    fighter2: { type: String, required: true },
-    description: { type: String, required: true },
-    rounds: [{type: ObjectId}],
-    date: { type: Date }
+    fighter2: { type: String, required: 2 },
+    description: { type: String },
+    date: { type: Date },
+    fights: [{type: ObjectId}],
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );
 
-Fight.virtual("creator",
+Card.virtual("creator",
 {
   localField: "creatorEmail",
   ref: "Profile",
   foreignField: "email",
   justOne: true
 })
-export default Fight;
+
+export default Card;
