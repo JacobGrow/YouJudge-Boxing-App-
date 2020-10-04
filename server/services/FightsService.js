@@ -2,8 +2,12 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class FightsService{
-  find(query) {
-    throw new Error("Method not implemented.");
+  async find(query = {}) {
+   let data = await dbContext.Fights.find(query).populate(
+     "creator",
+     "name picture"
+   );
+   return data
   }
   findById(id) {
     throw new Error("Method not implemented.");
