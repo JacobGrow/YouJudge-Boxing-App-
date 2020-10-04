@@ -2,23 +2,33 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class RoundsService {
-  find(query) {
-    throw new Error("Method not implemented.");
+  async find(userEmail) {
+   return await dbContext.Rounds.find({ creatorEmail: userEmail}).populate("creator", "name picture")
   }
-  findById(id) {
-    throw new Error("Method not implemented.");
+  async findById(id, userEmail) {
+    let data = await dbContext.Rounds.findOne({ _id: id, creatorEmail: userEmail})
   }
-  findAll(arg0) {
-    throw new Error("Method not implemented.");
+  async findAll(query = {}) {
+    let data = await dbContext.Rounds.find(query);
+    return data
   }
-  create(body) {
-    throw new Error("Method not implemented.");
+  async create(rawData) {
+    let data = await dbContext.Rounds.create(rawData)
+    return data;
   }
-  edit(body) {
-    throw new Error("Method not implemented.");
+  async edit(id, userEmail, update) {
+    let data = await dbContext.Rounds.findOneAndUpdate({ _id: id, creatorEmail: userEmail}, update, { new: true})
+    if (!data){
+      throw new BadRequest("Invalid ID or you do not own this round")
+    }
+    return data;
   }
-  deleteRound(id) {
-    throw new Error("Method not implemented.");
+  async deleteRound(id, userEmail) {
+    let data = await dbContext.Rounds.findOneAndRemove({ _id: id, creatorEmail: userEmail });
+    if (!data) {
+      throw new BadRequest("Invalid ID or you do not own this round")
+    }
+    return ("DELETED")
   }
 
 }
