@@ -9,23 +9,30 @@ class FightsService{
    );
    return data
   }
-  findById(id) {
-    throw new Error("Method not implemented.");
+  async findById(id, userEmail) {
+    let data = await dbContext.Fights.findOne({_id: id, creatorEmail: userEmail})
+    if (!data){
+      throw new BadRequest("Invalid ID or you do not own this fight")
+    }
+    return data
   }
-  create(body) {
-    throw new Error("Method not implemented.");
+  async create(rawData) {
+    let data = await dbContext.Fights.create(rawData);
+    return data
   }
-  edit(body) {
-    throw new Error("Method not implemented.");
+  async edit(update) {
+    let data = await dbContext.Fights.findOneAndUpdate( update.id, update, {new: true})
+    if (!data){
+      throw new BadRequest("Invalid ID or you do not own this fight.")
+    }
+    return data;
   }
-  deleteFight(id) {
-    throw new Error("Method not implemented.");
+  async deleteFight(id, userEmail) {
+   let data = await dbContext.Fights.findOneAndRemove({_id: id, creatorEmail: userEmail})
+   if(!data){
+     throw new BadRequest("Invalid ID or you do not own this fight.")
+   }
   }
-
-
-
-
-
 
 }
 export const fightsService = new FightsService();
