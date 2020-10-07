@@ -10,6 +10,7 @@ const Fight = new Schema(
     fighter2: { type: String, required: true },
     description: { type: String, required: true },
     rounds: [{type: ObjectId}],
+    creatorEmail: { type: String, required: true },
     date: { type: Date }
   },
   { timestamps: true, toJSON: { virtuals: true } }

@@ -9,7 +9,7 @@ const Round = new Schema(
     score1: { type: Number, required: true },
     score2: { type: Number, required: 2 },
     description: { type: String },
-    fightId: {type: ObjectId },
+    roundId: {type: ObjectId },
     creatorEmail: { type: String, required: true },
   },
   { timestamps: true, toJSON: { virtuals: true } }
